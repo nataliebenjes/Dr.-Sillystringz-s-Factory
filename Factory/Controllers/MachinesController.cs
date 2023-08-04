@@ -22,7 +22,7 @@ namespace Factory.Controllers
     {
       Machine thisMachine = _db.Machines
         .Include(machine => machine.JoinEntities)
-        .ThenInclude(join => join.Item)
+        .ThenInclude(join => join.Engineer)
         .FirstOrDefault(machine => machine.MachineId == id);
       return View(thisMachine);
     }
@@ -31,7 +31,7 @@ namespace Factory.Controllers
       return View();
     }
     [HttpPost]
-    pubic ActionResult Create(Machine machine)
+    public ActionResult Create(Machine machine)
     {
       _db.Machines.Add(machine);
       _db.SaveChanges();
