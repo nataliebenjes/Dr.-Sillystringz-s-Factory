@@ -9,11 +9,11 @@
 
 @if (@Model.EngineerMachines.Count == 0)
 {
-    <p>This machine does not belong to any engineers</p>
+    <p>This engineer isn't licensed to repair any machines.</p>
 }
 else
 {
-    <h4>engineers the machine belong to:</h4>
+    <h4>Machines that this engineer is licensed to repair:</h4>
     <ul>
     @foreach (EngineerMachine join in Model.EngineerMachines)
         {
@@ -21,7 +21,7 @@ else
             @using (Html.BeginForm("DeleteJoin", "Engineers"))
             {
                 @Html.Hidden("joinId", @join.EngineerMachineId)
-                <input type="submit" value="Delete"/>
+                <input type="submit" value="Delete" />
             }
         }
     </ul>
