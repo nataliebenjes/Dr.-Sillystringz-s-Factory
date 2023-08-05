@@ -8,7 +8,7 @@
 
 <h2>Machine Details</h2>
 <h3>@Html.DisplayNameFor(model => model.MachineName): @Html.DisplayFor(model => model.MachineName)</h3>
-@if (@Model.JoinEntities.Count == 0)
+@if (@Model.EngineerMachines.Count == 0)
 {
     <p>This machine does not belong to any engineers</p>
 }
@@ -16,7 +16,7 @@ else
 {
     <h4>engineers the machine belong to:</h4>
     <ul>
-    @foreach (EngineerMachine join in Model.JoinEntities)
+    @foreach (EngineerMachine join in Model.EngineerMachines)
         {
             <li>@join.Engineer.PersonName</li>
             @using (Html.BeginForm("DeleteJoin", "Machines"))

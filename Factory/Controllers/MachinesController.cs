@@ -21,7 +21,7 @@ namespace Factory.Controllers
     public ActionResult Details(int id)
     {
       Machine thisMachine = _db.Machines
-        .Include(machine => machine.JoinEntities)
+        .Include(machine => machine.EngineerMachines)
         .ThenInclude(join => join.Engineer)
         .FirstOrDefault(machine => machine.MachineId == id);
       return View(thisMachine);
@@ -37,6 +37,15 @@ namespace Factory.Controllers
       _db.SaveChanges();
       return RedirectToAction("Index");
     }
+    public ActionResult AddEngineer(int id)
+    {
+      Machine thisMachine = _db.Machines.FirstOrDefault(machines => machines.MachineId == id);
+      ViewBag.EngineerId = new SelectList(_db.Engineers, "EngineerId", "PersonName");
+      ViewBag.Engineers = _db.Engineers.ToList();
+
+      return View(thisMachine);
+    }
+    [HttpPost]
     public ActionResult AddEngineer(Machine machine, int engineerId)
     {
 #nullable enable

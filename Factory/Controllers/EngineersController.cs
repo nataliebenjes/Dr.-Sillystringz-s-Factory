@@ -24,9 +24,10 @@ namespace Factory.Controllers
         public ActionResult Details(int id)
         {
             Engineer thisEngineer = _db.Engineers
-                .Include(engineer => engineer.JoinEntities)
-                .ThenInclude(join => join.Machine)
-                .FirstOrDefault(engineer => engineer.EngineerId == id);
+                  .Include(engineer => engineer.EngineerMachines)
+                  .ThenInclude(join => join.Machine)
+                  .FirstOrDefault(engineer => engineer.EngineerId == id);
+
             return View(thisEngineer);
         }
 
@@ -47,6 +48,7 @@ namespace Factory.Controllers
         {
             Engineer thisEngineer = _db.Engineers.FirstOrDefault(engineers => engineers.EngineerId == id);
             ViewBag.MachineId = new SelectList(_db.Machines, "MachineId", "MachineName");
+            ViewBag.Machines = _db.Machines.ToList();
             return View(thisEngineer);
         }
 
